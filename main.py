@@ -26,14 +26,24 @@ if __name__ == '__main__':
     window.onkey(snake.left, "Left")
     window.onkey(snake.right, "Right")
 
-    game_is_on = True
-    while game_is_on:
+    keep_playing = True
+    while keep_playing:
         window.update()
         time.sleep(0.1)
         snake.move(20)
 
         if snake.head.distance(point) < 15:
             point.new_position()
+            snake.extend_snake()
             score.add_points()
 
+        if (snake.head.xcor() > 340 or snake.head.xcor() < -340 or snake.head.ycor() > 340 or
+                snake.head.ycor() < -340):
+            keep_playing = False
+            score.end_game()
+
+        for segment in snake.segments[1:]:
+            if snake.head.distance(segment) < 10:
+                keep_playing = False
+                score.end_game()
     window.exitonclick()
