@@ -39,11 +39,11 @@ if __name__ == '__main__':
 
         if (snake.head.xcor() > 340 or snake.head.xcor() < -340 or snake.head.ycor() > 340 or
                 snake.head.ycor() < -340):
-            keep_playing = False
-            score.end_game()
+            score.reset()
+            snake.reset()
 
         for segment in snake.segments[1:]:
             if snake.head.distance(segment) < 10:
-                keep_playing = False
-                score.end_game()
+                score.reset()
+                snake.reset()
     window.exitonclick()
